@@ -9,7 +9,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/')) {
+          if (id.includes('node_modules/react-dom/') || id.includes('node_modules/react/')) {
             return 'vendor-react';
           }
           if (id.includes('node_modules/antd') || id.includes('node_modules/@ant-design')) {

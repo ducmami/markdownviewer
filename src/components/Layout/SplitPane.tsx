@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect, ReactNode } from 'react';
+import { useState, useRef, useCallback, useEffect, type ReactNode } from 'react';
 
 interface SplitPaneProps {
   left: ReactNode;

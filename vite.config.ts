@@ -8,11 +8,19 @@ export default defineConfig({
     sourcemap: false,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom'],
-          'vendor-antd': ['antd', '@ant-design/icons'],
-          'vendor-monaco': ['@monaco-editor/react'],
-          'vendor-markdown': ['marked', 'dompurify', 'mermaid'],
+        manualChunks(id) {
+          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/')) {
+            return 'vendor-react';
+          }
+          if (id.includes('node_modules/antd') || id.includes('node_modules/@ant-design')) {
+            return 'vendor-antd';
+          }
+          if (id.includes('node_modules/@monaco-editor') || id.includes('node_modules/monaco-editor')) {
+            return 'vendor-monaco';
+          }
+          if (id.includes('node_modules/marked') || id.includes('node_modules/dompurify') || id.includes('node_modules/mermaid')) {
+            return 'vendor-markdown';
+          }
         },
       },
     },

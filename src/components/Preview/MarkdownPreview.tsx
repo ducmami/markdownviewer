@@ -67,7 +67,6 @@ export function MarkdownPreview({ markdown, isDark = false }: MarkdownPreviewPro
     
     // Split by delimiter BEFORE sanitizing
     const regex = new RegExp(`${DIAGRAM_DELIMITER}([^:]+):([^_]+)${DIAGRAM_DELIMITER}`, 'g');
-    const parts: string[] = [];
     let lastIndex = 0;
     let match;
     

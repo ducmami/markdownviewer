@@ -18,8 +18,8 @@ function App() {
   const [syncScroll, setSyncScroll] = useLocalStorage<boolean>('sync-scroll', true);
   
   // Refs for scroll sync
-  const editorScrollRef = useRef<(scrollTop: number, scrollHeight: number) => void>();
-  const previewScrollRef = useRef<(scrollTop: number, scrollHeight: number) => void>();
+  const editorScrollRef = useRef<(scrollTop: number, scrollHeight: number) => void>(undefined);
+  const previewScrollRef = useRef<(scrollTop: number, scrollHeight: number) => void>(undefined);
   const isScrollingRef = useRef<'editor' | 'preview' | null>(null);
 
   const handleThemeToggle = useCallback(() => {

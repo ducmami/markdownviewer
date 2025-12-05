@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef, useEffect, useCallback, type MutableRefObject } from 'react';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 import { MermaidRenderer, PlantUMLRenderer } from '../DiagramRenderer';
@@ -7,6 +7,8 @@ import './MarkdownPreview.css';
 interface MarkdownPreviewProps {
   markdown: string;
   isDark?: boolean;
+  onScroll?: (scrollTop: number, scrollHeight: number) => void;
+  scrollToRef?: MutableRefObject<((scrollTop: number, scrollHeight: number) => void) | undefined>;
 }
 
 interface DiagramBlock {
@@ -24,7 +26,36 @@ interface ParsedSection {
 // Unique delimiter that won't appear in normal content
 const DIAGRAM_DELIMITER = '___DIAGRAM___';
 
-export function MarkdownPreview({ markdown, isDark = false }: MarkdownPreviewProps) {
+export function MarkdownPreview({ markdown, isDark = false, onScroll, scrollToRef }: MarkdownPreviewProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Handle scroll event
+  const handleScroll = useCallback(() => {
+    if (containerRef.current && onScroll) {
+      const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+      const maxScroll = scrollHeight - clientHeight;
+      if (maxScroll > 0) {
+        onScroll(scrollTop, maxScroll);
+      }
+    }
+  }, [onScroll]);
+
+  // Setup scrollTo function for sync
+  useEffect(() => {
+    if (scrollToRef) {
+      scrollToRef.current = (scrollTop: number, scrollHeight: number) => {
+        if (containerRef.current) {
+          const { scrollHeight: containerScrollHeight, clientHeight } = containerRef.current;
+          const maxScroll = containerScrollHeight - clientHeight;
+          if (scrollHeight > 0 && maxScroll > 0) {
+            const ratio = scrollTop / scrollHeight;
+            containerRef.current.scrollTop = ratio * maxScroll;
+          }
+        }
+      };
+    }
+  }, [scrollToRef]);
+
   const sections = useMemo(() => {
     const result: ParsedSection[] = [];
     const diagrams: DiagramBlock[] = [];
@@ -111,6 +142,8 @@ export function MarkdownPreview({ markdown, isDark = false }: MarkdownPreviewPro
 
   return (
     <div 
+      ref={containerRef}
+      onScroll={handleScroll}
       className={`markdown-preview ${isDark ? 'dark' : 'light'}`}
       style={{
         height: '100%',

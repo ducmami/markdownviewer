@@ -1,4 +1,4 @@
-import { Layout, Button, Space, Tooltip, Typography, message } from 'antd';
+import { Layout, Button, Space, Tooltip, Typography, message, Switch } from 'antd';
 import {
   SunOutlined,
   MoonOutlined,
@@ -15,9 +15,11 @@ interface AppHeaderProps {
   onThemeToggle: () => void;
   onReset: () => void;
   markdown: string;
+  syncScroll: boolean;
+  onSyncScrollToggle: (checked: boolean) => void;
 }
 
-export function AppHeader({ isDark, onThemeToggle, onReset, markdown }: AppHeaderProps) {
+export function AppHeader({ isDark, onThemeToggle, onReset, markdown, syncScroll, onSyncScrollToggle }: AppHeaderProps) {
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(markdown);
@@ -36,7 +38,7 @@ export function AppHeader({ isDark, onThemeToggle, onReset, markdown }: AppHeade
         padding: '0 24px',
         background: isDark ? '#1f1f1f' : '#001529',
         borderBottom: isDark ? '1px solid #303030' : 'none',
-        height: 56,
+        height: 50,
       }}
     >
       <Space align="center">
@@ -55,6 +57,14 @@ export function AppHeader({ isDark, onThemeToggle, onReset, markdown }: AppHeade
       </Space>
 
       <Space size="middle">
+        <Tooltip title="Sync scroll between editor and preview">
+          <Switch
+            size="small"
+            checked={syncScroll}
+            onChange={onSyncScrollToggle}
+          />
+        </Tooltip>
+
         <Tooltip title="Reset to default">
           <Button
             type="text"

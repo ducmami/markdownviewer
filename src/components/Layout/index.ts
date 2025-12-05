@@ -1,0 +1,2 @@
+export { SplitPane } from './SplitPane';
+

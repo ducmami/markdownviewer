@@ -1,0 +1,7 @@
+# Cloudflare Pages configuration
+name = "markdownviewer"
+compatibility_date = "2025-01-10"
+
+[site]
+bucket = "./dist"
+

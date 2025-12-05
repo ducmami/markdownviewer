@@ -15,7 +15,7 @@ const { Content } = Layout;
 function App() {
   const [markdown, setMarkdown] = useLocalStorage<string>('markdown-content', DEFAULT_MARKDOWN);
   const [isDark, setIsDark] = useLocalStorage<boolean>('theme-dark', false);
-  const [syncScroll, setSyncScroll] = useLocalStorage<boolean>('sync-scroll', true);
+  const [syncScroll, setSyncScroll] = useLocalStorage<boolean>('sync-scroll', false);
   
   // Refs for scroll sync
   const editorScrollRef = useRef<(scrollTop: number, scrollHeight: number) => void>(undefined);

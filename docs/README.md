@@ -8,6 +8,7 @@ A modern, feature-rich Markdown editor with live preview, diagram support, and a
 - **Monaco Editor**: Powered by the same editor that runs VS Code
 - **Mermaid Diagrams**: Create flowcharts, sequence diagrams, and more
 - **PlantUML Support**: UML diagrams rendered via PlantUML server
+- **D2 Diagrams**: Terrastruct D2 (text-to-diagram) rendered in-browser via WebAssembly
 - **Dark/Light Mode**: Toggle between themes for comfortable editing
 - **Auto-save**: Your content is automatically saved to localStorage
 - **Responsive Design**: Works on desktop and tablet devices
@@ -21,6 +22,7 @@ A modern, feature-rich Markdown editor with live preview, diagram support, and a
 - **marked** + **DOMPurify** - Safe Markdown parsing
 - **Mermaid.js** - Client-side diagram rendering
 - **PlantUML** - Server-side UML diagram generation
+- **@terrastruct/d2** - Client-side D2 rendering via WebAssembly
 
 ## Getting Started
 
@@ -117,6 +119,36 @@ System --> User: Response
 \`\`\`
 \`\`\`
 
+### D2 Diagrams
+
+Create diagrams using [D2 (Terrastruct)](https://d2lang.com/) syntax. D2 is
+compiled and rendered fully in the browser via WebAssembly (no server round-trip):
+
+\`\`\`markdown
+\`\`\`d2
+direction: right
+
+user: User {
+  shape: person
+}
+api: API Gateway {
+  shape: hexagon
+}
+db: Database {
+  shape: cylinder
+}
+
+user -> api: request
+api -> db: query
+db -> api: rows
+api -> user: response
+\`\`\`
+\`\`\`
+
+Supported layout engines: \`dagre\` (default) and \`elk\`. Choose via
+\`vars: { d2-config: { layout-engine: elk } }\` or other D2 config directives.
+Dark mode is respected automatically through D2's \`themeID\` / \`darkThemeID\`.
+
 ## Keyboard Shortcuts
 
 | Shortcut | Action |
@@ -192,5 +224,6 @@ This project is licensed under the MIT License - see the [LICENSE](../LICENSE) f
 - [Ant Design](https://ant.design/)
 - [Mermaid](https://mermaid.js.org/)
 - [PlantUML](https://plantuml.com/)
+- [D2 (Terrastruct)](https://d2lang.com/)
 - [marked](https://marked.js.org/)
 

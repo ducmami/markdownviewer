@@ -2,7 +2,7 @@ export const DEFAULT_MARKDOWN = `# Markdown Viewer
 
 Markdown Viewer is a free online tool that helps you view and render Markdown instantly.
 
-Fully supports **PlantUML** and **Mermaid**, allowing you to create and view diagrams directly without installing any software.
+Fully supports **PlantUML**, **Mermaid**, and **D2**, allowing you to create and view diagrams directly without installing any software.
 
 ---
 
@@ -25,6 +25,10 @@ Alice -> Bob: Hello
 ### 🔹 Full Mermaid Support
 
 Flowchart, sequence, Gantt, class diagram, ERD…
+
+### 🔹 D2 (Terrastruct) Support
+
+Modern text-to-diagram language, rendered client-side via WebAssembly.
 
 ### 🔹 No Installation – 100% Web-based
 
@@ -54,6 +58,31 @@ flowchart TD
 
 ---
 
+## D2 Demo
+
+\`\`\`d2
+direction: right
+
+user: User {
+  shape: person
+}
+
+api: API Gateway {
+  shape: hexagon
+}
+
+db: Database {
+  shape: cylinder
+}
+
+user -> api: request
+api -> db: query
+db -> api: rows
+api -> user: response
+\`\`\`
+
+---
+
 ## Why Choose This Markdown Viewer?
 
 - Completely free
@@ -71,6 +100,9 @@ A: Yes. Just use the \`plantuml\` code block.
 
 **Q: Is Mermaid fully supported?**  
 A: Yes, including flowchart, sequence, class, gantt…
+
+**Q: Does Markdown Viewer support D2?**  
+A: Yes. Use the \`d2\` code block; diagrams are rendered locally via WebAssembly.
 
 **Q: Is my data uploaded to a server?**  
 A: No. All processing runs in your browser.

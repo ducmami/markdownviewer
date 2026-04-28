@@ -1,7 +1,7 @@
 import { useMemo, useRef, useEffect, useCallback, type MutableRefObject } from 'react';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
-import { MermaidRenderer, PlantUMLRenderer } from '../DiagramRenderer';
+import { MermaidRenderer, PlantUMLRenderer, D2Renderer } from '../DiagramRenderer';
 import './MarkdownPreview.css';
 
 interface MarkdownPreviewProps {
@@ -13,12 +13,12 @@ interface MarkdownPreviewProps {
 
 interface DiagramBlock {
   id: string;
-  type: 'mermaid' | 'plantuml';
+  type: 'mermaid' | 'plantuml' | 'd2';
   content: string;
 }
 
 interface ParsedSection {
-  type: 'html' | 'mermaid' | 'plantuml';
+  type: 'html' | 'mermaid' | 'plantuml' | 'd2';
   content: string;
   id?: string;
 }
@@ -78,7 +78,13 @@ export function MarkdownPreview({ markdown, isDark = false, onScroll, scrollToRe
         diagrams.push({ id, type: 'plantuml', content: text });
         return `${DIAGRAM_DELIMITER}${id}:plantuml${DIAGRAM_DELIMITER}`;
       }
-      
+
+      if (language === 'd2') {
+        const id = `d2-${diagramIndex++}`;
+        diagrams.push({ id, type: 'd2', content: text });
+        return `${DIAGRAM_DELIMITER}${id}:d2${DIAGRAM_DELIMITER}`;
+      }
+
       // Default code block rendering with syntax highlighting class
       const escapedText = text
         .replace(/&/g, '&amp;')
@@ -116,7 +122,7 @@ export function MarkdownPreview({ markdown, isDark = false, onScroll, scrollToRe
       
       // Add diagram
       const id = match[1];
-      const type = match[2] as 'mermaid' | 'plantuml';
+      const type = match[2] as 'mermaid' | 'plantuml' | 'd2';
       const diagram = diagrams.find(d => d.id === id);
       if (diagram) {
         result.push({ type, content: diagram.content, id });
@@ -184,7 +190,18 @@ export function MarkdownPreview({ markdown, isDark = false, onScroll, scrollToRe
               />
             );
           }
-          
+
+          if (section.type === 'd2') {
+            return (
+              <D2Renderer
+                key={section.id}
+                id={section.id!}
+                content={section.content}
+                isDark={isDark}
+              />
+            );
+          }
+
           return null;
         })}
       </div>

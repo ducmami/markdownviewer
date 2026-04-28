@@ -1,7 +1,7 @@
 {
   "name": "markdownviewer",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "A modern Markdown editor with live preview, Mermaid diagrams, and PlantUML support",
   "author": "DucMami",
@@ -16,6 +16,7 @@
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
     "@monaco-editor/react": "^4.7.0",
+    "@terrastruct/d2": "^0.1.33",
     "antd": "^6.0.1",
     "dompurify": "^3.3.0",
     "marked": "^17.0.1",

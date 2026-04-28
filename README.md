@@ -1,6 +1,6 @@
 # Markdown Viewer
 
-A modern, feature-rich Markdown editor with live preview, Mermaid diagrams, and PlantUML support.
+A modern, feature-rich Markdown editor with live preview, Mermaid diagrams, PlantUML, and D2 support.
 
 ![Markdown Viewer](images/rongsam.svg)
 
@@ -11,6 +11,7 @@ A modern, feature-rich Markdown editor with live preview, Mermaid diagrams, and 
 - 🌙 **Dark/Light Mode** - Easy on your eyes
 - 📊 **Mermaid Diagrams** - Flowcharts, sequence diagrams, and more
 - 🌿 **PlantUML Support** - UML diagrams rendered via server
+- 🧭 **D2 Diagrams** - Terrastruct D2 rendered in-browser via WebAssembly
 - 💾 **Auto-save** - Your content is saved locally
 - 📋 **Copy to Clipboard** - One-click copy markdown content
 - 🔄 **Resizable Panels** - Drag to adjust editor/preview ratio
@@ -25,6 +26,7 @@ A modern, feature-rich Markdown editor with live preview, Mermaid diagrams, and 
 - **Marked** - Markdown parser
 - **Mermaid** - Diagram rendering
 - **PlantUML** - UML diagram support
+- **@terrastruct/d2** - D2 diagram rendering (WebAssembly)
 - **DOMPurify** - XSS protection
 
 ## Getting Started
@@ -74,7 +76,7 @@ npm run deploy
 ```
 src/
 ├── components/
-│   ├── DiagramRenderer/   # Mermaid & PlantUML renderers
+│   ├── DiagramRenderer/   # Mermaid, PlantUML & D2 renderers
 │   ├── Editor/            # Monaco editor wrapper
 │   ├── Header/            # App header with controls
 │   ├── Layout/            # Split pane layout

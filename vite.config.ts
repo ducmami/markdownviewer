@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
+  optimizeDeps: {
+    exclude: ['@terrastruct/d2'],
+  },
   build: {
     outDir: 'dist',
     sourcemap: false,
@@ -17,6 +20,9 @@ export default defineConfig({
           }
           if (id.includes('node_modules/@monaco-editor') || id.includes('node_modules/monaco-editor')) {
             return 'vendor-monaco';
+          }
+          if (id.includes('node_modules/@terrastruct/d2')) {
+            return 'vendor-d2';
           }
           if (id.includes('node_modules/marked') || id.includes('node_modules/dompurify') || id.includes('node_modules/mermaid')) {
             return 'vendor-markdown';
